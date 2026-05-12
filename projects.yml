@@ -2,4 +2,3 @@ projects:
   - name: agenda
     repo: https://github.com/ArthurKrieger/sicredi-agenda.git
     branch: main
-    jenkinsfile: agenda/Jenkinsfile
