@@ -1,0 +1,35 @@
+jenkins:
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+        - id: "admin"
+          password: "admin"
+  authorizationStrategy:
+    loggedInUsersCanDoAnything:
+      allowAnonymousRead: false
+  numExecutors: 2
+
+security:
+  globalJobDslSecurityConfiguration:
+    useScriptSecurity: false
+
+jobs:
+  - script: |
+      freeStyleJob('seed') {
+        description('Reads projects.yml and creates a pipeline job for each entry')
+        scm {
+          git {
+            remote {
+              url('https://github.com/ArthurKrieger/jenkins-infra.git')
+            }
+            branch('*/main')
+          }
+        }
+        steps {
+          jobDsl {
+            targets('seeds/projects.groovy')
+            removedJobAction('IGNORE')
+          }
+        }
+      }
