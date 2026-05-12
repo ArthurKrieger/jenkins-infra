@@ -13,7 +13,7 @@ config.projects.each { project ->
                         branch("*/${project.branch ?: 'main'}")
                     }
                 }
-                scriptPath('Jenkinsfile')
+                scriptPath(project.jenkinsfile ?: 'Jenkinsfile')
             }
         }
     }
